@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>movie-watch-list-app</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <main class="container">
+        <div class="movie-app">
+            <h1>Movie Watch List</h1>
+            <input class="add_movie" type="text" placeholder="Enter the movie name!">
+            <ul class="movie_list"></ul>
+        </div>
+    </main>
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        let input = document.querySelector('input[type="text"]')
+        let rootEle = document.querySelector('.movie_list')
+
+        let allMovie = [
+            {
+                name: 'Forest gump',
+                iswatched: false
+            },
+            {
+                name: 'Inception',
+                iswatched: false
+            }
+        ]
+
+        input.addEventListener('keyup', (event) => {
+            if (event.keyCode == 13 && event.target.value) {
+                let obj = {
+                    name: event.target.value,
+                    iswatched: false
+                }
+                allMovie.push(obj)
+                event.target.value = ''
+                createUI()
+            }
+        })
+
+        function handleChange(e) {
+            let id = e.target.id
+            allMovie[id].iswatched = !allMovie[id].iswatched
+            createUI()
+        }
+
+        function createUI(data = allMovie) {
+            let movieUI = data.map((ele, i) => {
+                return (
+                    <li className="flex" key={ele.name}>
+                        <p>{ele.name}</p>
+                        <button id={i} className={ele.iswatched ? 'btn' : ' '} onClick={handleChange}>
+                            {ele.iswatched ? "Watched!" : 'To Watch'}</button>
+                    </li>
+                )
+            })
+            ReactDOM.render(movieUI, rootEle)
+        }
+
+        createUI()
+    </script>
+</body>
+
+</html>
