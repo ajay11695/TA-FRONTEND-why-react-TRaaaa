@@ -1,0 +1,119 @@
+<!-- React ReactDOM JSX -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article Card Using JSX</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://kit.fontawesome.com/814a0fdb0b.js" crossorigin="anonymous"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+
+<body>
+    <main class="container">
+        <h1 class="heading">All Articles</h1>
+        <p class="sub-heading">Collection of best articles on Startups</p>
+        <div id="root"></div>
+    </main>
+
+
+    <script type="text/babel">
+        const monthNames = [
+            "January",
+            "February",
+            "March",
+            "April",
+            "May",
+            "June",
+            "July",
+            "August",
+            "September",
+            "October",
+            "November",
+            "December",
+        ];
+
+        let articles = [
+            {
+                title: 'City Lights in New York',
+                date: new Date('2017-01-26'),
+                comments: 67,
+                subTitle: 'The city that never sleeps.',
+                description:
+                    'New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers.',
+                category: 'photos',
+                imageURL:
+                    'https://images.unsplash.com/photo-1610874933184-7728fd666162?ixid=MXwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzfHx8ZW58MHx8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60',
+            },
+            {
+                title: 'Twitter’s decentralized future',
+                date: new Date('2021-01-16'),
+                comments: 43,
+                subTitle: 'The decentralized future of twitter.',
+                description:
+                    'The platform’s vision of a sweeping open standard could also be the far-right’s internet endgame',
+                category: 'social network',
+                imageURL:
+                    'https://techcrunch.com/wp-content/uploads/2019/09/twitter-hidden-replies1.png?resize=1536,816',
+            },
+            {
+                title:
+                    'Startups look beyond lidar for autonomous vehicle perception',
+                date: new Date('2017-07-26'),
+                comments: 17,
+                subTitle:
+                    'Lidar pushed ahead of traditional cameras because it could do things they couldn’t',
+                description:
+                    'Last CES was a time of reckoning for lidar companies, many of which were cratering due to a lack of demand from a (still) non-existent autonomous vehicle industry. ',
+                category: 'future',
+                imageURL:
+                    'https://techcrunch.com/wp-content/uploads/2019/07/GettyImages-846875220.jpg?w=1390&crop=1',
+            },
+        ];
+
+        let Article = (props) => {
+            console.log(props)
+            return (
+                <>
+                    <div className='article'>
+                        <section>
+                            <img src={props.articleInfo.imageURL} alt="" />
+                            <div className='date'>
+                                <p>{props.articleInfo.date.getDate()}</p>
+                                <p className='month'>{monthNames[props.articleInfo.date.getMonth()].slice(0, 3)}</p>
+                            </div>
+                            <p className='category'>{props.articleInfo.category}</p>
+                        </section>
+
+                        <article>
+                            <h1>{props.articleInfo.title}</h1>
+                            <h2>{props.articleInfo.subTitle}</h2>
+                            <p className='para'>{props.articleInfo.description}</p>
+                            <i className='far fa-clock'></i>
+                            <small>6 mins ago </small>
+                            <i className='far fa-comment'></i>
+                            <small>{props.articleInfo.comments} comments</small>
+                        </article>
+                    </div>
+                </>
+            )
+        }
+
+        function Articles(){
+           return articles.map(article => <Article articleInfo={article}/>)
+        } 
+
+
+        // ReactDOM.render(<Articles/>,document.getElementById("root"))
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<Articles/>)
+    </script>
+</body>
+
+</html>
