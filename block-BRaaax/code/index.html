@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+        let buttonSize = {
+            SMALL: 'small',
+            MEDIUM: "medium",
+            LARGE: 'large'
+        }
+
+        let buttonType = {
+            PRIMARY: 'primary',
+            SECONDARY: "secondary",
+            TERTIARY: 'teatiary'
+        }
+        function Button(props) {
+            function getStyle() {
+                let { type = buttonType.PRIMARY, size = buttonSize.MEDIUM } = props
+                return `button button--${type} button--${size}`
+            }
+            return (
+                <button
+                    onClick={props.onClickHandler}
+                    className={getStyle()}
+                    disabled={props.disabled}
+                >{props.label || 'button'}</button>
+            )
+        }
+
+        function ButtonApp() {
+            return (
+                <>
+                    <div className='buttonBox'>
+                        <Button
+                            label="Button"
+                        />
+                        <Button
+                            label="click me!"
+                            size={buttonSize.LARGE}
+                            type={buttonType.SECONDARY}
+                        />
+                        <Button
+                            label="click me!"
+                            size="small"
+                            type="secondary"
+                        />
+                        <Button
+                            size="large"
+                            label="Button"
+                            type="tertiary"
+                            onClickHandler={() => alert("You Clicked Me!")}
+                        />
+                        <Button
+                        label="click me!"
+                            size={buttonSize.MEDIUM}
+                            type={buttonType.SECONDARY}
+                            onClickHandler={() => alert("You Clicked Me!")}
+                        />
+                        <Button
+                            disabled
+                            onClickHandler={() => alert("You Clicked Me!")}
+                        />
+                        <Button
+                            type={buttonType.SECONDARY}
+                            disabled
+                            onClickHandler={() => alert("You Clicked Me!")}
+                        />
+                    </div>
+                </>
+            )
+        }
+
+        let Root = ReactDOM.createRoot(document.getElementById('root'))
+        Root.render(<ButtonApp />)
+    </script>
+</body>
+
+</html>
