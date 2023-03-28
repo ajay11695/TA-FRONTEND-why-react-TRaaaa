@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>colour pallet UI</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div id="root" class="container"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <!-- Load Babel -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- colors -->
+    <script src="./color.js"></script>
+    <!-- Your custom script here -->
+    <script type="text/babel">
+
+        function Color(props) {
+            return (
+                <>
+                    <section className='flex'>
+                        <div className='flex-15'>
+                            <h2 className='name'>{props.name.slice(0, 1).toUpperCase() + props.name.slice(1)}</h2>
+                            <span className='color-name'>colors.{props.name}</span>
+                        </div>
+                        <ul className=' flex wrap flex-80'>
+
+                            {
+                                props.allcolor.map((color, i) => (
+                                    <li key={color} className='flex-18'>
+
+                                        <div className='color' style={{ backgroundColor: color }}></div>
+                                        <div className='flex'>
+                                            <span>{i === 0 ? 50 : (i * 100)}</span>
+                                            <span className='color-name'>{color}</span>
+                                        </div>
+                                    </li>
+                                ))
+
+                            }
+
+                        </ul>
+                    </section>
+                </>
+            )
+        }
+
+        function Colors() {
+            return (
+                <>
+                    <h1>Color Pallet UI</h1>
+                    {Object.keys(colors).map((key) => (<Color name={key} allcolor={colors[key]} key={key} />))}
+                </>
+            )
+        }
+
+        let Root = ReactDOM.createRoot(document.getElementById('root'))
+        Root.render(<Colors />)
+    </script>
+</body>
+
+</html>
